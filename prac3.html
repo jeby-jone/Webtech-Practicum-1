@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Gallery | BrightHarvest Energy</title>
+<style>
+:root{--navy:#0f2a3d;--blue:#1d4e7a;--sun:#f2b705;--leaf:#2e8b57;--mist:#eef5f8;--line:#cddbe3}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:16px/1.6 "Trebuchet MS","Segoe UI",Arial,sans-serif;color:#19313f;background:var(--mist)}
+header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;text-align:center;padding:3.5rem 1rem;border-bottom:4px solid var(--sun)}
+header h1{font-size:2.4rem;line-height:1.2}header p{max-width:56ch;margin:.7rem auto 0;color:#d6e4ec}
+.wrap{width:min(1100px,92%);margin:0 auto;padding:3rem 0}
+/* CSS Grid: three equal columns with one shared gap; every item is the same width */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem}
+figure{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:transform .25s,box-shadow .25s}
+figure:hover{transform:translateY(-5px);box-shadow:0 14px 28px rgba(15,42,61,.16)}
+/* Consistent image size: fixed 4:3 ratio and object-fit crop, whatever the original photo dimensions */
+.frame{position:relative;overflow:hidden}
+.frame img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .4s}
+figure:hover img{transform:scale(1.07)}
+.badge{position:absolute;top:.75rem;left:.75rem;background:var(--sun);color:var(--navy);font-size:.8rem;font-weight:700;padding:.1rem .7rem;border-radius:20px}
+figcaption{flex:1;padding:1rem 1.2rem 1.2rem}figcaption h3{color:var(--navy);font-size:1.15rem}
+figcaption p{font-size:.95rem;color:#3c5565;margin:.3rem 0 .6rem}figcaption small{color:var(--leaf);font-weight:700}
+footer{background:var(--navy);color:#cfdde6;text-align:center;padding:1.2rem;font-size:.9rem}
+/* Responsive columns: 3 on desktop, 2 on tablets, 1 on phones */
+@media(max-width:900px){.gallery{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.gallery{grid-template-columns:1fr}header h1{font-size:1.8rem}}
+</style>
+</head>
+<body>
+<header><h1>Project gallery</h1><p>Solar, wind and battery storage installations delivered by BrightHarvest Energy across Tamil Nadu.</p></header>
+<main><div class="wrap"><section class="gallery" aria-label="Completed renewable energy projects">
+  <figure><div class="frame"><span class="badge">Solar</span><img loading="lazy" alt="Rows of blue solar panels on open ground under a bright sun" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23cfe8f5'/%3E%3Crect y='170' width='400' height='130' fill='%23c9b98a'/%3E%3Ccircle cx='330' cy='60' r='30' fill='%23f2b705'/%3E%3Cpolygon points='30,230 80,180 190,180 160,230' fill='%231d4e7a'/%3E%3Cpolygon points='210,230 250,180 360,180 350,230' fill='%231d4e7a'/%3E%3Cpolygon points='0,290 50,245 200,245 170,290' fill='%231d4e7a'/%3E%3Cpolygon points='220,290 260,245 400,245 400,290' fill='%231d4e7a'/%3E%3C/svg%3E"></div>
+    <figcaption><h3>Harbor Solar Park</h3><p>A 12 MW ground-mounted solar farm supplying a port industrial area.</p><small>Thoothukudi &middot; 12 MW &middot; 2024</small></figcaption></figure>
+  <figure><div class="frame"><span class="badge">Solar</span><img loading="lazy" alt="House with solar panels fitted on the sloping roof" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23dff0ea'/%3E%3Crect y='250' width='400' height='50' fill='%232e8b57'/%3E%3Crect x='90' y='150' width='220' height='105' fill='%23fff' stroke='%230f2a3d' stroke-width='3'/%3E%3Cpolygon points='70,150 200,60 330,150' fill='%230f2a3d'/%3E%3Cpolygon points='130,138 200,88 270,138' fill='%231d4e7a' stroke='%23a9cbe6' stroke-width='2'/%3E%3Crect x='180' y='190' width='40' height='65' fill='%23f2b705'/%3E%3C/svg%3E"></div>
+    <figcaption><h3>Residential Rooftop System</h3><p>A 5 kW rooftop installation that cuts a family home's daytime power bill.</p><small>Madurai &middot; 5 kW &middot; 2025</small></figcaption></figure>
+  <figure><div class="frame"><span class="badge">Wind</span><img loading="lazy" alt="Three white wind turbines on green hills" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%2395c9e8'/%3E%3Cpath d='M0 250Q120 190 240 240T400 225V300H0z' fill='%232e8b57'/%3E%3Crect x='107' y='110' width='6' height='125' fill='%23fff'/%3E%3Cpath d='M110 110v-70M110 110l56 32M110 110l-56 32' stroke='%23fff' stroke-width='5'/%3E%3Crect x='257' y='130' width='6' height='105' fill='%23fff'/%3E%3Cpath d='M260 130v-60M260 130l48 28M260 130l-48 28' stroke='%23fff' stroke-width='5'/%3E%3C/svg%3E"></div>
+    <figcaption><h3>Ridge Wind Farm</h3><p>Six 3 MW turbines on a coastal ridge, connected to the state grid.</p><small>Tirunelveli &middot; 18 MW &middot; 2023</small></figcaption></figure>
+  <figure><div class="frame"><span class="badge">Wind</span><img loading="lazy" alt="Offshore wind turbines rising from blue sea waves" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23dfe9ef'/%3E%3Crect y='200' width='400' height='100' fill='%231d4e7a'/%3E%3Cpath d='M0 230q25-12 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0' stroke='%23a9cbe6' stroke-width='3' fill='none'/%3E%3Crect x='147' y='90' width='6' height='115' fill='%230f2a3d'/%3E%3Cpath d='M150 90v-60M150 90l50 29M150 90l-50 29' stroke='%230f2a3d' stroke-width='5'/%3E%3Crect x='297' y='120' width='5' height='85' fill='%230f2a3d'/%3E%3Cpath d='M300 120v-45M300 120l38 22M300 120l-38 22' stroke='%230f2a3d' stroke-width='4'/%3E%3C/svg%3E"></div>
+    <figcaption><h3>Coastal Offshore Pilot</h3><p>Two pilot turbines testing offshore wind yield near the Gulf of Mannar.</p><small>Gulf of Mannar &middot; 6 MW &middot; 2026</small></figcaption></figure>
+  <figure><div class="frame"><span class="badge">Storage</span><img loading="lazy" alt="Three battery storage containers with green charge level bars" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%230f2a3d'/%3E%3Crect x='35' y='90' width='95' height='150' rx='6' fill='%231d4e7a'/%3E%3Crect x='152' y='90' width='95' height='150' rx='6' fill='%231d4e7a'/%3E%3Crect x='270' y='90' width='95' height='150' rx='6' fill='%231d4e7a'/%3E%3Crect x='50' y='170' width='65' height='55' fill='%232e8b57'/%3E%3Crect x='167' y='140' width='65' height='85' fill='%232e8b57'/%3E%3Crect x='285' y='115' width='65' height='110' fill='%232e8b57'/%3E%3Crect x='60' y='68' width='45' height='22' fill='%23f2b705'/%3E%3C/svg%3E"></div>
+    <figcaption><h3>Metro Grid Battery</h3><p>A 20 MWh battery system that stores midday solar power for the evening peak.</p><small>Madurai &middot; 20 MWh &middot; 2025</small></figcaption></figure>
+  <figure><div class="frame"><span class="badge">Monitoring</span><img loading="lazy" alt="Monitoring screen showing a rising power output chart" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23dfe9ef'/%3E%3Crect x='50' y='50' width='300' height='180' rx='10' fill='%230f2a3d'/%3E%3Cpolyline points='75,200 130,170 180,185 235,120 290,100 325,80' fill='none' stroke='%23f2b705' stroke-width='5'/%3E%3Crect x='75' y='215' width='250' height='6' fill='%231d4e7a'/%3E%3Crect x='170' y='230' width='60' height='30' fill='%231d4e7a'/%3E%3Crect x='130' y='260' width='140' height='10' fill='%2352697a'/%3E%3C/svg%3E"></div>
+    <figcaption><h3>Remote Control Room</h3><p>One screen tracks output from every site, with alerts for faults and cleaning needs.</p><small>Thoothukudi &middot; All sites &middot; 24/7</small></figcaption></figure>
+</section></div></main>
+<footer>&copy; 2026 BrightHarvest Energy. Sample images and project data for a web design exercise.</footer>
+</body>
+</html>
