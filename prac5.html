@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrightHarvest Energy | Responsive Navigation</title>
+<style>
+:root{--navy:#0f2a3d;--blue:#1d4e7a;--sun:#f2b705;--mist:#eef5f8;--line:#cddbe3}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font:16px/1.65 "Trebuchet MS","Segoe UI",Arial,sans-serif;color:#19313f;background:var(--mist)}
+a{text-decoration:none;color:inherit}:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+/* Navigation bar: a flex ROW; space-between pushes brand and panel to opposite ends, align-items centers them vertically */
+.nav{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;border-bottom:3px solid var(--sun)}
+.bar{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.6rem 2rem;width:min(1100px,94%);margin:0 auto;padding:.7rem 0}
+.brand{display:flex;align-items:center;gap:.6rem;font-size:1.3rem;font-weight:700}
+.brand span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--sun);color:var(--navy)}
+/* Panel holds the links and the button; it is itself a flex row that grows to fill the free space */
+.panel{display:flex;flex:1;justify-content:space-between;align-items:center;gap:1.5rem}
+/* Menu: links sit in a row with a gap; flex-wrap lets them drop to a second line on medium screens */
+.menu{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.25rem 1.6rem;list-style:none;flex:1}
+.menu a{display:block;padding:.45rem .2rem;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.menu a:hover,.menu a[aria-current]{color:var(--sun);border-color:var(--sun)}
+.cta{padding:.55rem 1.2rem;border-radius:6px;background:var(--sun);color:var(--navy);font-weight:700;white-space:nowrap;transition:background .2s}
+.cta:hover{background:#ffd04a}
+.toggle{display:none;background:none;border:2px solid #fff;color:#fff;border-radius:6px;font-size:1.3rem;line-height:1;padding:.35rem .7rem;cursor:pointer}
+/* Responsive arrangement: below 800px the panel becomes a flex COLUMN under the brand and opens with the toggle button */
+@media(max-width:800px){
+  .toggle{display:block}
+  .panel{display:none;flex-direction:column;align-items:stretch;flex-basis:100%;gap:.75rem;padding-bottom:.5rem}
+  .panel.open{display:flex}
+  .menu{flex-direction:column;align-items:stretch;gap:0}
+  .menu a{padding:.8rem .5rem;border-bottom:1px solid rgba(255,255,255,.15)}
+  .cta{text-align:center}
+}
+/* Page content so the menu can be tested; cards also use flex-wrap */
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:4rem 0}
+.wrap{width:min(1100px,94%);margin:0 auto}
+.hero h1{font-size:2.4rem;line-height:1.2;max-width:20ch}.hero p{margin-top:.8rem;max-width:50ch;color:#d6e4ec}
+section{padding:3.5rem 0}h2{color:var(--navy);margin-bottom:1rem}
+.cards{display:flex;flex-wrap:wrap;gap:1.25rem}
+.card{flex:1 1 260px;background:#fff;border:1px solid var(--line);border-top:6px solid var(--sun);border-radius:10px;padding:1.25rem}
+footer{background:var(--navy);color:#cfdde6;text-align:center;padding:1.2rem}
+</style>
+</head>
+<body id="home">
+<header class="nav"><div class="bar">
+  <a class="brand" href="#home"><span aria-hidden="true">&#9728;</span>BrightHarvest Energy</a>
+  <button class="toggle" aria-label="Open menu" aria-expanded="false" aria-controls="panel">&#9776;</button>
+  <div class="panel" id="panel">
+    <nav aria-label="Main navigation"><ul class="menu">
+      <li><a href="#home" aria-current="page">Home</a></li><li><a href="#solutions">Solutions</a></li><li><a href="#benefits">Benefits</a></li>
+      <li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li>
+    </ul></nav>
+    <a class="cta" href="#contact">Free site assessment</a>
+  </div>
+</div></header>
+<main>
+<div class="hero"><div class="wrap"><h1>Clean power for your home, factory or grid</h1><p>Resize the browser window to watch the menu change from a horizontal bar to a stacked mobile menu.</p></div></div>
+<section id="solutions"><div class="wrap"><h2>Solutions</h2><div class="cards">
+  <div class="card"><h3>Solar power</h3><p>Rooftop and ground-mounted systems.</p></div><div class="card"><h3>Wind power</h3><p>Turbines for steady-wind sites.</p></div><div class="card"><h3>Energy storage</h3><p>Batteries for evenings and outages.</p></div>
+</div></div></section>
+<section id="benefits"><div class="wrap"><h2>Benefits</h2><p>Lower bills, stable costs, reliable supply and lower emissions.</p></div></section>
+<section id="projects"><div class="wrap"><h2>Projects</h2><p>Solar, wind and battery projects across Tamil Nadu.</p></div></section>
+<section id="contact"><div class="wrap"><h2>Contact</h2><p>hello@brightharvest.example | +91 12345 67890</p></div></section>
+</main>
+<footer>&copy; 2026 BrightHarvest Energy</footer>
+<script>
+const t=document.querySelector('.toggle'),p=document.querySelector('.panel');
+function set(o){p.classList.toggle('open',o);t.setAttribute('aria-expanded',o);t.setAttribute('aria-label',o?'Close menu':'Open menu')}
+t.addEventListener('click',()=>set(!p.classList.contains('open')));
+p.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+</script>
+</body>
+</html>
