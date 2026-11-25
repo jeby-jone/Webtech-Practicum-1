@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site Assessment Request | BrightHarvest Energy</title>
+<style>
+:root{--navy:#0f2a3d;--blue:#1d4e7a;--sun:#f2b705;--leaf:#2e8b57;--mist:#eef5f8;--line:#cddbe3;--error:#b3261e}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.65 "Trebuchet MS","Segoe UI",Arial,sans-serif;color:#19313f;background:var(--mist)}
+a{color:#fff}:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:860px;margin:auto;padding:0 1.25rem}
+header{background:var(--navy);color:#fff;padding:.9rem 0}header .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 2rem}
+header a,footer a{text-decoration:none}header strong{font-size:1.25rem}
+.intro{background:var(--navy);color:#d6e4ec;padding:.5rem 0 2.5rem}.intro h1{color:#fff;font-size:2.1rem;line-height:1.2;margin:0 0 .5rem}
+main .wrap{margin-top:-1.5rem;padding-bottom:3rem}
+form{background:#fff;border:1px solid var(--line);border-radius:10px;padding:1.5rem}
+fieldset{border:1px solid var(--line);border-radius:8px;margin:0 0 1.25rem;padding:.5rem 1.25rem 1.25rem}legend{font-weight:700;font-size:1.1rem;padding:0 .5rem}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0 1.5rem}.full{grid-column:1/-1}
+label,.lbl{display:flex;flex-direction:column;gap:.3rem;margin-top:.8rem;font-weight:700;font-size:.95rem}
+.req::after{content:" *";color:var(--error)}
+input,select,textarea{font:inherit;padding:.6rem .7rem;border:1px solid #8aa0ae;border-radius:6px;width:100%}
+small{font-weight:400;color:#52697a}
+.choices{display:flex;flex-wrap:wrap;gap:.3rem 1.5rem}.choices label,.check{flex-direction:row;align-items:center;gap:.45rem;font-weight:400;margin-top:.4rem}
+.choices input,.check input{width:1.1rem;height:1.1rem;accent-color:var(--blue)}
+input:user-invalid,select:user-invalid{border-color:var(--error);background:#fdf3f2}input:user-valid,select:user-valid{border-color:var(--leaf)}
+button{font:inherit;font-weight:700;padding:.75rem 1.6rem;border-radius:6px;cursor:pointer;margin:1rem .75rem 0 0}
+button[type=submit]{background:var(--sun);color:var(--navy);border:0}button[type=reset]{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+footer{background:var(--navy);color:#cfdde6;padding:1.5rem 0;font-size:.95rem}
+@media(max-width:700px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="renewable-energy.html"><strong>&#9728; BrightHarvest Energy</strong></a><a href="renewable-energy.html">Back to home page</a></div></header>
+<div class="intro"><div class="wrap"><h1>Request a free site assessment</h1>
+  <p>Tell us about your site and an engineer will reply within one working day. Fields marked * are required.</p></div></div>
+<main><div class="wrap">
+<form action="#" method="post" enctype="multipart/form-data">
+  <fieldset><legend>1. Your details</legend><div class="row">
+    <label class="req">Full name<input type="text" name="fullname" autocomplete="name" required minlength="2" maxlength="60" pattern="[A-Za-z .'\-]{2,60}" title="Letters, spaces, dots, apostrophes or hyphens only."></label>
+    <label>Company (optional)<input type="text" name="company" autocomplete="organization" maxlength="80"></label>
+    <label class="req">Email address<input type="email" name="email" autocomplete="email" required placeholder="name@example.com"></label>
+    <label class="req">Mobile number<input type="tel" name="phone" autocomplete="tel-national" required maxlength="10" pattern="[6-9][0-9]{9}" title="10-digit mobile number starting with 6, 7, 8 or 9."><small>10 digits, no spaces or country code.</small></label>
+    <label class="req full">Create a password for your project tracker<input type="password" name="password" autocomplete="new-password" required minlength="8" maxlength="40" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,40}" title="8+ characters with an uppercase letter, a lowercase letter and a number."><small>At least 8 characters with upper case, lower case and a number.</small></label>
+  </div></fieldset>
+  <fieldset><legend>2. Your site</legend>
+    <div class="lbl req" id="site">Type of site</div>
+    <div class="choices" role="radiogroup" aria-labelledby="site">
+      <label><input type="radio" name="site" value="home" required> Home</label><label><input type="radio" name="site" value="business"> Business or factory</label>
+      <label><input type="radio" name="site" value="farm"> Farm</label><label><input type="radio" name="site" value="utility"> Utility or developer</label>
+    </div>
+    <div class="row">
+      <label class="req">Site PIN code<input type="text" name="pincode" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" title="Enter a 6-digit PIN code."></label>
+      <label class="req">Monthly electricity bill (&#8377;)<input type="number" name="bill" required min="500" max="10000000" step="100" placeholder="e.g. 8000"></label>
+      <label>Free roof or land area (sq m)<input type="number" name="area" min="10" max="1000000"><small>Minimum 10. Leave blank if unsure.</small></label>
+      <label class="req">Preferred site visit date<input type="date" name="visit" required min="2026-10-17" max="2027-12-31"></label>
+    </div>
+  </fieldset>
+  <fieldset><legend>3. What you need</legend>
+    <div class="lbl" id="sol">Solutions you are interested in</div>
+    <div class="choices" role="group" aria-labelledby="sol">
+      <label><input type="checkbox" name="solutions" value="solar"> Solar power</label><label><input type="checkbox" name="solutions" value="wind"> Wind power</label>
+      <label><input type="checkbox" name="solutions" value="storage"> Energy storage</label>
+    </div>
+    <div class="row">
+      <label class="req">When do you want to start?<select name="timeline" required><option value="">Choose one</option><option>Within 1 month</option><option>Within 3 months</option><option>Within 6 months</option><option>Just exploring</option></select></label>
+      <label>How did you hear about us?<select name="source"><option value="">Choose one</option><option>Search engine</option><option>Friend or colleague</option><option>Social media</option><option>Other</option></select></label>
+      <label class="full">Tell us about your project<textarea name="details" rows="4" maxlength="500" placeholder="For example: cover daytime factory load and keep machines running in outages."></textarea><small>Up to 500 characters.</small></label>
+      <label class="full">Upload a recent electricity bill (optional)<input type="file" name="billfile" accept=".pdf,.jpg,.jpeg,.png"><small>PDF, JPG or PNG.</small></label>
+    </div>
+  </fieldset>
+  <label class="check req"><input type="checkbox" name="consent" required> I agree to be contacted about this enquiry.</label>
+  <label class="check"><input type="checkbox" name="news"> Send me occasional updates about incentives and new projects.</label>
+  <button type="submit">Submit request</button><button type="reset">Clear form</button>
+</form>
+</div></main>
+<footer><div class="wrap">&copy; 2026 BrightHarvest Energy, 21 Green Park Road, Thoothukudi, Tamil Nadu. <a href="tel:+911234567890">+91 12345 67890</a> | <a href="mailto:hello@brightharvest.example">hello@brightharvest.example</a></div></footer>
+</body>
+</html>
