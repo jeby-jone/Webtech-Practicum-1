@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrightHarvest Energy | Solar, Wind and Storage</title>
+<style>
+/* 1. Colors and box model: custom properties, border-box sizing, reset */
+:root{--navy:#0f2a3d;--blue:#1d4e7a;--sun:#f2b705;--leaf:#2e8b57;--mist:#eef5f8;--line:#cddbe3;--ink:#19313f}
+*{box-sizing:border-box;margin:0;padding:0}
+/* 2. Font styling and text alignment */
+body{font:16px/1.65 "Trebuchet MS","Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--mist)}
+h1{font-size:2.8rem;line-height:1.15;letter-spacing:-.02em}
+h2{font-size:1.8rem;text-align:center;margin-bottom:.5rem;color:var(--navy)}
+h3{font-size:1.25rem;margin-bottom:.4rem}
+.lead{text-align:center;color:#52697a;max-width:55ch;margin:0 auto 2rem}
+a{color:inherit;text-decoration:none}
+/* 3. Width, height, margins and padding */
+.wrap{width:min(1060px,92%);margin:0 auto}
+section{padding:4rem 0}
+/* 4. Positioning: sticky header, absolutely placed sun, fixed back-to-top button */
+header{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;border-bottom:3px solid var(--sun)}
+header .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;min-height:64px}
+.logo{font-size:1.3rem;font-weight:700}
+nav a{margin-left:1.5rem;padding:.3rem 0;border-bottom:2px solid transparent;transition:.2s}
+nav a:hover{border-color:var(--sun);color:var(--sun)}
+.hero{position:relative;overflow:hidden;color:#fff;padding:6rem 0 5rem;background:linear-gradient(135deg,var(--navy),var(--blue))}
+.hero::before{content:"";position:absolute;top:-80px;right:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(var(--sun),transparent 70%);opacity:.6}
+.hero .wrap{position:relative}
+.hero p{max-width:48ch;margin:1rem 0 2rem;color:#d6e4ec;font-size:1.15rem}
+.btn{display:inline-block;padding:.8rem 1.6rem;border-radius:6px;font-weight:700;background:var(--sun);color:var(--navy);transition:transform .2s,background .2s}
+.btn:hover{background:#ffd04a;transform:translateY(-3px)}
+/* 5. Page layout: CSS grid cards with borders, backgrounds and hover effects */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.card{position:relative;background:#fff;border:1px solid var(--line);border-top:6px solid var(--leaf);border-radius:10px;padding:1.5rem;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(15,42,61,.15)}
+.card .icon{display:grid;place-items:center;width:56px;height:56px;margin-bottom:1rem;font-size:1.7rem;border-radius:50%;background:var(--mist)}
+.card .tag{position:absolute;top:1rem;right:1rem;font-size:.8rem;font-weight:700;padding:.15rem .6rem;border-radius:20px;background:var(--sun);color:var(--navy)}
+.card.solar{border-top-color:var(--sun)}.card.store{border-top-color:var(--blue)}
+.stats{background:var(--navy);color:#fff;text-align:center}.stats h2,.cta h2{color:#fff}
+.stats .grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}.stats strong{display:block;font-size:2.4rem;color:var(--sun)}
+.scroll{overflow-x:auto}table{width:100%;min-width:560px;border-collapse:collapse;background:#fff;border:1px solid var(--line)}
+th,td{padding:.8rem 1rem;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--blue);color:#fff}tbody tr:hover{background:#fff6d6}
+.cta{text-align:center;color:#fff;background:linear-gradient(90deg,#23704a,var(--blue))}.cta .btn{margin-top:1rem}
+footer{background:var(--navy);color:#cfdde6;text-align:center;padding:1.5rem 0;font-size:.9rem}
+.top{position:fixed;right:1.2rem;bottom:1.2rem;width:44px;height:44px;line-height:44px;text-align:center;border-radius:50%;background:var(--sun);color:var(--navy);font-weight:700}
+@media(max-width:700px){header .wrap{flex-direction:column;padding:.6rem 0}nav a{margin:0 .7rem}h1{font-size:2.1rem}}
+</style>
+</head>
+<body id="top">
+<header><div class="wrap"><a class="logo" href="#top">&#9728; BrightHarvest Energy</a>
+  <nav aria-label="Main navigation"><a href="#solutions">Solutions</a><a href="#impact">Impact</a><a href="#projects">Projects</a><a href="#contact">Contact</a></nav></div></header>
+<main>
+<div class="hero"><div class="wrap"><h1>Clean power for your home,<br>factory or grid</h1>
+  <p>We design, build and maintain solar, wind and battery storage systems with one team from site survey to monitoring.</p>
+  <a class="btn" href="#contact">Get a free site assessment</a></div></div>
+<section id="solutions"><div class="wrap"><h2>Our solutions</h2><p class="lead">Choose one technology or combine all three. We size every system to your site and usage.</p>
+  <div class="grid">
+    <article class="card solar"><span class="tag">Most popular</span><div class="icon" aria-hidden="true">&#9728;</div><h3>Solar power</h3><p>Rooftop and ground-mounted systems that cut your bill from month one.</p></article>
+    <article class="card"><div class="icon" aria-hidden="true">&#127788;</div><h3>Wind power</h3><p>Turbines for steady-wind sites, backed by a year of wind data before we build.</p></article>
+    <article class="card store"><div class="icon" aria-hidden="true">&#128267;</div><h3>Energy storage</h3><p>Batteries store extra power for evenings, outages and peak-tariff hours.</p></article>
+  </div></div></section>
+<section id="impact" class="stats"><div class="wrap"><h2>Our impact</h2>
+  <div class="grid"><p><strong>30 MW</strong>generation built</p><p><strong>20 MWh</strong>storage installed</p><p><strong>25 years</strong>panel warranty</p><p><strong>1 day</strong>enquiry reply time</p></div></div></section>
+<section id="projects"><div class="wrap"><h2>Completed projects</h2><p class="lead">A selection of recent installations (sample data).</p>
+  <div class="scroll"><table><thead><tr><th>Project</th><th>Type</th><th>Location</th><th>Capacity</th></tr></thead>
+    <tbody><tr><td>Harbor Solar Park</td><td>Solar</td><td>Thoothukudi</td><td>12 MW</td></tr>
+    <tr><td>Ridge Wind Farm</td><td>Wind</td><td>Tirunelveli</td><td>18 MW</td></tr>
+    <tr><td>Metro Grid Battery</td><td>Storage</td><td>Madurai</td><td>20 MWh</td></tr></tbody></table></div></div></section>
+<section id="contact" class="cta"><div class="wrap"><h2>Ready to switch to clean power?</h2><p>Book a free site visit and get a cost estimate within one working day.</p>
+  <a class="btn" href="mailto:hello@brightharvest.example">Email our team</a></div></section>
+</main>
+<footer>&copy; 2026 BrightHarvest Energy, 21 Green Park Road, Thoothukudi, Tamil Nadu</footer>
+<a class="top" href="#top" aria-label="Back to top">&uarr;</a>
+</body>
+</html>
