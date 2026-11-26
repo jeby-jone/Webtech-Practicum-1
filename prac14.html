@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrightHarvest Energy | Animated Page</title>
+<style>
+:root{--navy:#0f2a3d;--blue:#1d4e7a;--sun:#f2b705;--leaf:#2e8b57;--mist:#eef5f8;--line:#cddbe3}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:16px/1.65 "Trebuchet MS","Segoe UI",Arial,sans-serif;color:#19313f;background:var(--mist)}
+img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:none}
+.wrap{width:min(1100px,92%);margin:0 auto}
+section{padding:4rem 0}h2{font-size:2rem;text-align:center;color:var(--navy);margin-bottom:2rem}
+/* DESKTOP (default styles): full navigation row, two-column hero, 3-column cards, 4-column stats */
+header{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;border-bottom:3px solid var(--sun)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:64px}
+nav{display:flex;gap:1.6rem}nav a:hover{color:var(--sun)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:5rem 0}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center}
+.hero h1{font-size:3rem;line-height:1.15}.hero p{margin:1rem 0 1.8rem;color:#d6e4ec}.hero img{border-radius:12px}
+.btn{display:inline-block;background:var(--sun);color:var(--navy);font-weight:700;padding:.8rem 1.6rem;border-radius:6px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.card{background:#fff;border:1px solid var(--line);border-top:6px solid var(--leaf);border-radius:10px;padding:1.5rem}
+.stats{background:var(--navy);color:#fff;text-align:center}.stats h2{color:#fff}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}.stats strong{display:block;font-size:2.4rem;color:var(--sun)}
+table{width:100%;border-collapse:collapse;background:#fff}th,td{padding:.8rem 1rem;text-align:left;border:1px solid var(--line)}th{background:var(--blue);color:#fff}
+footer{background:var(--navy);color:#cfdde6;padding:2.5rem 0 1.2rem}.foot{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+footer h3{color:#fff;margin-bottom:.4rem}.copy{text-align:center;font-size:.85rem;margin-top:2rem}
+/* Screen-size indicator (delete this rule to remove the label) */
+body::after{content:"Desktop view (above 1024px)";position:fixed;left:.8rem;bottom:.8rem;background:var(--sun);color:var(--navy);font-size:.8rem;font-weight:700;padding:.3rem .8rem;border-radius:20px;pointer-events:none}
+/* TABLET (1024px and below): 2-column cards, 2-column stats and footer, smaller headings and spacing */
+@media(max-width:1024px){section{padding:3rem 0}.hero{padding:3.5rem 0}.hero h1{font-size:2.4rem}.hero .wrap{gap:2rem}
+  .cards,.cols{grid-template-columns:repeat(2,1fr)}.foot{grid-template-columns:1fr 1fr}body::after{content:"Tablet view (601px to 1024px)"}}
+/* MOBILE (600px and below): single column, scrolling nav, stacked hero, table rows turn into cards */
+@media(max-width:600px){h2{font-size:1.6rem}.hero{padding:2.5rem 0}.hero h1{font-size:2rem}.hero .wrap{grid-template-columns:1fr}
+  header .wrap{flex-direction:column;gap:.2rem;padding:.6rem 0}nav{width:100%;overflow-x:auto;white-space:nowrap;gap:1.2rem;padding-bottom:.4rem}
+  .cards,.foot{grid-template-columns:1fr}.cols{gap:1rem}.stats strong{font-size:1.8rem}
+  thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}table,tbody,tr,td{display:block}
+  tr{margin-bottom:1rem;border:1px solid var(--line);border-radius:8px;background:#fff}td{border:0;border-bottom:1px solid var(--line)}
+  td::before{content:attr(data-label) ": ";font-weight:700;color:var(--blue)}body::after{content:"Mobile view (up to 600px)"}}
+@media(prefers-reduced-motion:no-preference){.card{transition:transform .25s,box-shadow .25s}.card:hover{transform:translateY(-5px);box-shadow:0 12px 26px rgba(15,42,61,.15)}}
+/* ===== Animations ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.85);opacity:.4}60%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+@keyframes pulse{50%{transform:scale(1.1)}}
+.hero .wrap>div,.hero picture{animation:fadeUp .9s ease both}
+button.btn{border:0;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:scale(1.05);box-shadow:0 6px 16px rgba(0,0,0,.3)}
+.btn.pulse{animation:pulse .4s}
+.panel{max-height:0;opacity:0;overflow:hidden;background:#fff;color:var(--navy);border-radius:10px;padding:0 1.2rem;
+  transition:max-height .6s ease,opacity .5s,padding .4s}
+.panel.show{max-height:320px;opacity:1;margin-top:1.5rem;padding:1.2rem}
+.panel li{margin-left:1.2rem}
+.card{cursor:pointer}
+.card .more{display:block;max-height:0;opacity:0;overflow:hidden;color:var(--blue);transition:max-height .4s,opacity .4s,margin .4s}
+.card.open .more{max-height:100px;opacity:1;margin-top:.8rem}
+.card.open{animation:pop .5s;border-top-color:var(--sun)}
+.cols p strong{transition:transform .3s}.cols p:hover strong{transform:scale(1.25)}
+tbody tr{transition:background .3s,transform .3s;cursor:pointer}
+tbody tr.sel{background:#fff6d6;transform:translateX(8px)}
+.toast{position:fixed;top:80px;right:0;z-index:20;background:var(--leaf);color:#fff;padding:.9rem 1.4rem;border-radius:8px;
+  opacity:0;transform:translateX(120%);transition:transform .5s,opacity .5s}
+.toast.show{opacity:1;transform:translateX(-1rem)}
+/* ===== DOM request manager ===== */
+.form{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem}
+.form input,#list input{padding:.7rem;border:2px solid var(--line);border-radius:6px;font:inherit}
+.form input{flex:1 1 160px}
+input[aria-invalid="true"]{border-color:#c0392b;background:#fdecea}
+.empty{text-align:center;color:var(--blue);margin:1rem 0;font-weight:700}
+#list{list-style:none;display:grid;gap:.8rem}
+#list li{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;background:#fff;border:1px solid var(--line);
+  border-left:6px solid var(--sun);border-radius:8px;padding:.8rem 1rem;animation:fadeUp .4s ease both}
+#list li.out{animation:none;opacity:0;transform:translateX(60px);transition:transform .35s,opacity .35s}
+#list input{padding:.4rem;width:130px;margin-right:.4rem}
+.acts{display:flex;gap:.5rem;flex-wrap:wrap}.acts .btn{padding:.4rem .9rem}
+.acts .del{background:#c0392b;color:#fff}
+/* ===== Quote form ===== */
+.qform{background:#fff;border:1px solid var(--line);border-radius:10px;padding:1.5rem;display:grid;gap:1.2rem}
+.qform fieldset{border:1px solid var(--line);border-radius:8px;padding:1rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.qform legend{padding:0 .5rem;font-weight:700;color:var(--blue)}
+.qform label{display:block;font-weight:700;font-size:.9rem}.qform .full{grid-column:1/-1}
+.qform input,.qform select,.qform textarea{width:100%;padding:.65rem;border:2px solid var(--line);border-radius:6px;font:inherit;margin-top:.2rem}
+.qform input[type=checkbox]{width:auto;margin-right:.5rem}
+.qform :focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,122,.2)}
+.qform .touched:invalid{border-color:#c0392b;background:#fdecea}.qform .touched:valid{border-color:var(--leaf)}
+.err{display:block;color:#c0392b;font-size:.8rem;font-weight:400;min-height:1.1rem}
+.ok{display:none;background:var(--leaf);color:#fff;padding:1rem;border-radius:8px;text-align:center;font-weight:700}
+.ok.show{display:block;animation:pop .5s}
+@media(max-width:600px){.qform fieldset{grid-template-columns:1fr}}
+/* ===== Forecast API ===== */
+.bar{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-bottom:1.2rem}
+.bar select{padding:.7rem;border:2px solid var(--line);border-radius:6px;font:inherit}
+.sum{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.2rem}
+.sum div{background:#fff;border-left:6px solid var(--sun);border-radius:8px;padding:.8rem 1rem}
+.sum strong{display:block;font-size:1.5rem;color:var(--blue)}
+.msg{display:none;text-align:center;font-weight:700;padding:1rem;border-radius:8px;margin-bottom:1rem}.msg.show{display:block}
+#fcLoad{color:var(--blue)}#fcErr{background:#fdecea;color:#c0392b}
+.spin{display:inline-block;width:1rem;height:1rem;border:3px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:.5rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tag{display:inline-block;padding:.1rem .7rem;border-radius:20px;background:var(--mist);font-weight:700}.tag.hi{background:var(--leaf);color:#fff}
+#fcWrap{display:none;overflow-x:auto}#fcWrap.show{display:block}#fcWrap tbody tr{cursor:default}
+@media(max-width:600px){.sum{grid-template-columns:1fr}}
+/* ===== Task manager ===== */
+.tform{display:grid;grid-template-columns:2fr 1fr 1fr;gap:.8rem;margin-bottom:1.2rem}.tform .full{grid-column:1/-1;display:flex;gap:.6rem}
+.tform input,.tform select,.tform textarea,.tbar select{padding:.65rem;border:2px solid var(--line);border-radius:6px;font:inherit;width:100%}
+.tform :focus,.tbar select:focus{outline:none;border-color:var(--blue)}.tform [hidden]{display:none}
+.tbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem}.tbar select{width:auto}
+#tSum{list-style:none;display:flex;gap:.8rem;flex-wrap:wrap}
+#tSum li{background:#fff;border-left:6px solid var(--sun);border-radius:8px;padding:.4rem .9rem;font-weight:700;transition:transform .2s}
+#tSum li:hover{transform:translateY(-3px)}
+#tBody tr{cursor:default;transition:all .3s}#tBody tr:hover{background:#fff6d6}#tBody tr.out{opacity:0;transform:translateX(40px)}
+#tBody .btn{padding:.35rem .8rem;margin:.2rem .4rem .2rem 0;font-size:.85rem}#tBody .del{background:#c0392b;color:#fff}
+#tBody select{padding:.3rem;border:2px solid var(--line);border-radius:6px;font:inherit}
+@media(max-width:600px){.tform{grid-template-columns:1fr}}
+/* ===== Product explorer + FAQ accordion ===== */
+.ptool{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem}
+.ptool input,.ptool select{padding:.65rem;border:2px solid var(--line);border-radius:6px;font:inherit}.ptool input{flex:1 1 220px}
+.ptool :focus,.pgrid li:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,122,.2)}
+.pgrid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+.pgrid li{background:#fff;border:2px solid var(--line);border-radius:10px;padding:.8rem;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s}
+.pgrid li:hover{transform:translateY(-5px);box-shadow:0 12px 24px rgba(15,42,61,.15)}.pgrid li.active{border-color:var(--sun)}
+.pgrid img{border-radius:8px;margin-bottom:.6rem}.pgrid h3{font-size:1.05rem}.pgrid strong{color:var(--leaf)}
+.pdet{display:flex;flex-wrap:wrap;gap:1.2rem;align-items:center;background:#fff;border-radius:10px;max-height:0;opacity:0;overflow:hidden;padding:0 1.2rem;transition:max-height .5s,opacity .4s,padding .4s,margin .4s}
+.pdet.show{max-height:420px;opacity:1;padding:1.2rem;margin-top:1.2rem;border:2px solid var(--sun)}.pdet img{width:140px;border-radius:8px}.pdet .btn{margin:.6rem .5rem 0 0}
+.faq details{background:#fff;border:1px solid var(--line);border-left:6px solid var(--leaf);border-radius:8px;margin-bottom:.8rem;padding:.9rem 1.2rem;transition:box-shadow .3s,border-color .3s}
+.faq summary{cursor:pointer;font-weight:700;color:var(--navy)}.faq summary:hover,.faq summary:focus{color:var(--blue);outline:none}
+.faq details.active{border-left-color:var(--sun);box-shadow:0 8px 20px rgba(15,42,61,.12)}.faq details p{margin-top:.6rem;animation:fadeUp .4s ease}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<header><div class="wrap"><strong>&#9728; BrightHarvest Energy</strong>
+  <nav aria-label="Main navigation"><a href="#solutions">Solutions</a><a href="#impact">Impact</a><a href="#projects">Projects</a><a href="#contact">Contact</a></nav></div></header>
+<main>
+<div class="hero"><div class="wrap"><div><h1>Clean power for your home, factory or grid</h1><p>We design, build and maintain solar, wind and battery storage systems. Resize your browser to see the layout adapt.</p>
+  <button class="btn" id="assess">Get a free site assessment</button>
+  <div class="panel" id="panel"><h3>How your free assessment works</h3>
+    <ol><li>Site visit within 2 days</li><li>Custom design and savings estimate</li><li>Clear quote, no obligation</li></ol>
+    <button class="btn" id="book" style="margin-top:.8rem">Book my visit</button>
+    <button class="btn" id="close" style="margin-top:.8rem;background:var(--mist)">Close</button></div></div>
+  <picture><source media="(max-width:600px)" srcset="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%2395c9e8'/%3E%3Ccircle cx='230' cy='60' r='30' fill='%23f2b705'/%3E%3Cpath d='M0 240Q100 190 200 235T300 225V300H0z' fill='%232e8b57'/%3E%3Crect x='147' y='100' width='6' height='135' fill='%23fff'/%3E%3Cpath d='M150 100v-70M150 100l58 34M150 100l-58 34' stroke='%23fff' stroke-width='6'/%3E%3C/svg%3E">
+    <img alt="Wind turbine and solar sun over green hills" width="520" height="320" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 320'%3E%3Crect width='520' height='320' fill='%2395c9e8'/%3E%3Ccircle cx='440' cy='60' r='34' fill='%23f2b705'/%3E%3Cpath d='M0 260Q150 200 300 250T520 235V320H0z' fill='%232e8b57'/%3E%3Crect x='147' y='110' width='7' height='145' fill='%23fff'/%3E%3Cpath d='M150 110v-80M150 110l66 38M150 110l-66 38' stroke='%23fff' stroke-width='6'/%3E%3Crect x='327' y='140' width='6' height='110' fill='%23fff'/%3E%3Cpath d='M330 140v-60M330 140l48 28M330 140l-48 28' stroke='%23fff' stroke-width='5'/%3E%3C/svg%3E"></picture></div></div>
+<section id="solutions"><div class="wrap"><h2>Our solutions</h2><div class="cards">
+  <article class="card"><h3>Solar power</h3><p>Rooftop and ground-mounted systems that cut your bill from month one.</p><span class="more">Payback in about 4 years. Click again to close.</span></article>
+  <article class="card"><h3>Wind power</h3><p>Turbines for steady-wind sites, backed by a year of wind data.</p><span class="more">Works best at average wind speeds above 5 m/s.</span></article>
+  <article class="card"><h3>Energy storage</h3><p>Batteries store extra power for evenings, outages and peak tariffs.</p><span class="more">Gives instant backup during power cuts.</span></article></div></div></section>
+<section id="impact" class="stats"><div class="wrap"><h2>Our impact</h2><div class="cols"><p><strong>30 MW</strong>generation built</p><p><strong>20 MWh</strong>storage installed</p><p><strong>25 yrs</strong>panel warranty</p><p><strong>1 day</strong>reply time</p></div></div></section>
+<section id="projects"><div class="wrap"><h2>Completed projects</h2><table><thead><tr><th>Project</th><th>Type</th><th>Location</th><th>Capacity</th></tr></thead><tbody>
+  <tr><td data-label="Project">Harbor Solar Park</td><td data-label="Type">Solar</td><td data-label="Location">Thoothukudi</td><td data-label="Capacity">12 MW</td></tr>
+  <tr><td data-label="Project">Ridge Wind Farm</td><td data-label="Type">Wind</td><td data-label="Location">Tirunelveli</td><td data-label="Capacity">18 MW</td></tr>
+  <tr><td data-label="Project">Metro Grid Battery</td><td data-label="Type">Storage</td><td data-label="Location">Madurai</td><td data-label="Capacity">20 MWh</td></tr></tbody></table></div></section>
+<section id="explorer"><div class="wrap"><h2>Find your energy system</h2>
+  <div class="ptool"><input id="pSearch" type="search" placeholder="Search, e.g. rooftop or 10 kWh" aria-label="Search systems">
+    <select id="pType" aria-label="Filter by type"><option>All</option><option>Solar</option><option>Wind</option><option>Storage</option></select><button class="btn" id="pReset">Reset</button></div>
+  <p class="empty" id="pCount"></p><ul class="pgrid" id="pGrid"></ul><div class="pdet" id="pDet"></div></div></section>
+<section id="faq"><div class="wrap"><h2>Frequently asked questions</h2><div class="faq" id="faqBox">
+  <details><summary>How long does an installation take?</summary><p>Rooftop systems usually take a few days. Larger solar, wind and storage plants take weeks, depending on approvals.</p></details>
+  <details><summary>Do I need a battery with solar?</summary><p>No. A battery is optional, but it lets you use stored power in the evening and during outages.</p></details>
+  <details><summary>Is my site suitable for wind power?</summary><p>We study a year of wind data for your site first, because wind works best where speeds are steady.</p></details>
+  <details><summary>What maintenance is needed?</summary><p>Panels need periodic cleaning and inspection. Turbines and batteries follow a yearly service plan.</p></details></div></div></section>
+<section id="forecast"><div class="wrap"><h2>Live site conditions</h2>
+  <div class="bar"><select id="fcSite" aria-label="Choose a site"><option value="8.76,78.13">Thoothukudi</option><option value="8.73,77.70">Tirunelveli</option><option value="9.92,78.12">Madurai</option></select>
+    <button class="btn" id="fcBtn">Refresh forecast</button></div>
+  <div class="msg" id="fcLoad"><span class="spin"></span>Loading 7-day forecast...</div><div class="msg" id="fcErr"></div>
+  <div class="sum" id="fcSum"></div>
+  <div id="fcWrap"><table><thead><tr><th>Date</th><th>Sunshine (h)</th><th>Solar energy (MJ/m&sup2;)</th><th>Max wind (km/h)</th><th>Best for</th></tr></thead><tbody id="fcBody"></tbody></table></div>
+  <p class="empty">Live data from the free Open-Meteo weather API.</p></div></section>
+<section id="tasks"><div class="wrap"><h2>Project task manager</h2>
+  <form class="tform" id="tf">
+    <input id="tTitle" required maxlength="60" placeholder="Task title, e.g. Install inverter at Site 4">
+    <select id="tCat"><option>Solar installation</option><option>Wind maintenance</option><option>Battery storage</option><option>Site inspection</option></select>
+    <select id="tStat"><option>To do</option><option>In progress</option><option>Done</option></select>
+    <textarea class="full" id="tNotes" maxlength="120" rows="2" placeholder="Notes (optional)"></textarea>
+    <div class="full"><button class="btn" id="tSave" type="submit">Add task</button><button class="btn" id="tCancel" type="button" hidden>Cancel edit</button></div></form>
+  <div class="tbar"><ul id="tSum"></ul><select id="tFilter" aria-label="Filter by status"><option>All</option><option>To do</option><option>In progress</option><option>Done</option></select></div>
+  <p class="empty" id="tEmpty"></p>
+  <table><thead><tr><th>Task</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tBody"></tbody></table></div></section>
+<section id="requests"><div class="wrap"><h2>Plan your project</h2>
+  <div class="form"><input id="pName" placeholder="Your name"><input id="pLoc" placeholder="Location"><input id="pKw" type="number" min="1" placeholder="Size (kW)">
+    <button class="btn" id="add">Add request</button></div>
+  <p class="empty" id="status"></p><ul id="list"></ul></div></section>
+<section id="quote"><div class="wrap"><h2>Request a free quote</h2>
+  <form class="qform" id="qf" novalidate>
+    <fieldset><legend>Contact details</legend>
+      <label>Full name<input type="text" required minlength="3" maxlength="40" pattern="[A-Za-z .]+" placeholder="e.g. Ashlin Bezalel"><span class="err"></span></label>
+      <label>Mobile number<input type="tel" required maxlength="10" pattern="[6-9][0-9]{9}" placeholder="10-digit number"><span class="err"></span></label>
+      <label class="full">Email<input type="email" required placeholder="you@example.com"><span class="err"></span></label></fieldset>
+    <fieldset><legend>Project details</legend>
+      <label>Energy type<select required><option value="">-- Choose --</option><option>Solar</option><option>Wind</option><option>Storage</option></select><span class="err"></span></label>
+      <label>System size (kW)<input type="number" required min="1" max="5000" placeholder="1 to 5000"><span class="err"></span></label>
+      <label>Preferred visit date<input type="date" id="qd" required><span class="err"></span></label>
+      <label>Monthly bill in Rs (optional)<input type="number" min="500" max="500000" step="100" placeholder="500 to 500000"><span class="err"></span></label>
+      <label class="full">Notes (<span id="cc">0</span>/200)<textarea maxlength="200" rows="3" placeholder="Roof type, nearby wind speed, backup needs..."></textarea><span class="err"></span></label></fieldset>
+    <label><input type="checkbox" required>I agree to be contacted about this quote<span class="err"></span></label>
+    <button class="btn" type="submit">Submit request</button><div class="ok" id="ok" role="status"></div></form></div></section>
+</main>
+<footer id="contact"><div class="wrap"><div class="foot"><div><h3>BrightHarvest Energy</h3><p>Solar, wind and storage built by one team.</p></div>
+  <div><h3>Visit</h3><p>21 Green Park Road<br>Thoothukudi, Tamil Nadu</p></div><div><h3>Contact</h3><p>+91 12345 67890<br>hello@brightharvest.example</p></div></div>
+  <p class="copy">&copy; 2026 BrightHarvest Energy. Sample content for a web design exercise.</p></div></footer>
+<script>
+const $=s=>document.querySelector(s), toast=msg=>{const t=$('#toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800)};
+$('#assess').addEventListener('click',e=>{const b=e.currentTarget;b.classList.add('pulse');
+  setTimeout(()=>b.classList.remove('pulse'),400);$('#panel').classList.toggle('show')});
+$('#close').addEventListener('click',()=>$('#panel').classList.remove('show'));
+$('#book').addEventListener('click',()=>{$('#panel').classList.remove('show');
+  setTimeout(()=>toast('✔ Visit requested! We will reply within 1 day.'),500)});
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{
+  c.classList.toggle('open');toast(c.classList.contains('open')?'Details opened':'Details closed')}));
+document.querySelectorAll('tbody tr').forEach(r=>r.addEventListener('click',()=>r.classList.toggle('sel')));
+
+/* ===== DOM manipulation: add, display, modify, remove ===== */
+const list=document.getElementById('list'), status=document.getElementById('status'),
+  fields=['pName','pLoc','pKw'].map(id=>document.getElementById(id));
+const refresh=()=>{const n=list.children.length;status.textContent=n?'Total requests: '+n:'No requests yet. Add your first one above.'};
+function render(li){ // display mode
+  li.innerHTML='<span></span><div class="acts"><button class="btn edit">Edit</button><button class="btn del">Remove</button></div>';
+  li.querySelector('span').textContent=li.getAttribute('data-n')+' | '+li.getAttribute('data-l')+' | '+li.getAttribute('data-k')+' kW';
+}
+function addItem(n,l,k){
+  const li=document.createElement('li');
+  li.setAttribute('data-n',n);li.setAttribute('data-l',l);li.setAttribute('data-k',k);
+  render(li);list.appendChild(li);refresh();
+}
+document.getElementById('add').addEventListener('click',()=>{
+  fields.forEach(f=>f.setAttribute('aria-invalid',String(!f.value.trim())));
+  if(fields.some(f=>!f.value.trim())){status.textContent='Please fill in all three fields.';return}
+  addItem(fields[0].value.trim(),fields[1].value.trim(),fields[2].value.trim());
+  fields.forEach(f=>f.value='');fields[0].focus();toast('Request added');
+});
+list.addEventListener('click',e=>{ // one listener handles edit, save and remove
+  const li=e.target.closest('li'),b=e.target.classList;if(!li)return;
+  if(b.contains('del')){li.classList.add('out');setTimeout(()=>{li.remove();refresh();toast('Request removed')},350)}
+  else if(b.contains('edit')){ // modify mode
+    li.innerHTML='<div class="acts"><input class="en"><input class="el"><input class="ek" type="number"></div><div class="acts"><button class="btn save">Save</button></div>';
+    li.querySelector('.en').value=li.getAttribute('data-n');li.querySelector('.el').value=li.getAttribute('data-l');li.querySelector('.ek').value=li.getAttribute('data-k');
+  }else if(b.contains('save')){
+    const v=['.en','.el','.ek'].map(q=>li.querySelector(q));
+    v.forEach(i=>i.setAttribute('aria-invalid',String(!i.value.trim())));
+    if(v.some(i=>!i.value.trim()))return;
+    li.setAttribute('data-n',v[0].value.trim());li.setAttribute('data-l',v[1].value.trim());li.setAttribute('data-k',v[2].value.trim());
+    render(li);toast('Request updated');
+  }
+});
+addItem('Ravi','Thoothukudi',50);addItem('Meena','Madurai',120);
+
+/* ===== Form validation ===== */
+(()=>{const f=document.getElementById('qf'),ok=document.getElementById('ok'),d=document.getElementById('qd'),
+  els=[...f.querySelectorAll('input,select,textarea')],day=n=>new Date(Date.now()+n*864e5).toISOString().slice(0,10);
+d.min=day(1);d.max=day(90);
+const msg={valueMissing:'This field is required.',typeMismatch:'Enter a valid email address.',tooShort:'Enter at least 3 characters.',
+  rangeUnderflow:'Value is too small.',rangeOverflow:'Value is too large.',stepMismatch:'Use a multiple of 100.'};
+function check(el){el.setCustomValidity('');const v=el.validity;
+  if(v.patternMismatch)el.setCustomValidity(el.type==='tel'?'Enter a 10-digit mobile number starting with 6-9.':'Use letters, spaces and dots only.');
+  else if(el.type==='date'&&(v.rangeUnderflow||v.rangeOverflow))el.setCustomValidity('Pick a date within the next 90 days.');
+  else{const k=Object.keys(msg).find(k=>v[k]);if(k)el.setCustomValidity(msg[k])}
+  el.parentElement.querySelector('.err').textContent=el.validationMessage}
+els.forEach(el=>['input','change','blur'].forEach(ev=>el.addEventListener(ev,()=>{el.classList.add('touched');check(el)})));
+f.querySelector('textarea').addEventListener('input',e=>document.getElementById('cc').textContent=e.target.value.length);
+f.addEventListener('submit',e=>{e.preventDefault();ok.classList.remove('show');
+  els.forEach(el=>{el.classList.add('touched');check(el)});
+  if(!f.checkValidity()){els.find(el=>!el.validity.valid).reportValidity();return}
+  ok.textContent='\u2714 Thank you, '+els[0].value.trim()+'! Your quote request is received. We will call you within 1 day.';
+  f.reset();els.forEach(el=>el.classList.remove('touched'));f.querySelectorAll('.err').forEach(x=>x.textContent='');
+  document.getElementById('cc').textContent=0;ok.classList.add('show');toast('Quote request sent')});
+})();
+
+/* ===== API integration: fetch + async/await ===== */
+(()=>{const $=id=>document.getElementById(id),sel=$('fcSite'),btn=$('fcBtn'),load=$('fcLoad'),err=$('fcErr'),sum=$('fcSum'),body=$('fcBody'),wrap=$('fcWrap');
+const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e};
+const fmt=d=>new Date(d+'T00:00').toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
+async function getForecast(){
+  const [lat,lon]=sel.value.split(',');
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=sunshine_duration,shortwave_radiation_sum,wind_speed_10m_max&timezone=Asia%2FKolkata&forecast_days=7`;
+  const res=await fetch(url,{signal:AbortSignal.timeout(10000)});
+  if(!res.ok)throw new Error('Server replied with status '+res.status+'.');
+  const data=await res.json();
+  if(!data.daily||!Array.isArray(data.daily.time))throw new Error('Unexpected data format received.');
+  return data.daily;
+}
+function show(d){
+  body.replaceChildren();sum.replaceChildren();
+  const hrs=d.sunshine_duration.map(v=>(Number(v)||0)/3600),mj=d.shortwave_radiation_sum.map(v=>Number(v)||0),wind=d.wind_speed_10m_max.map(v=>Number(v)||0);
+  d.time.forEach((day,i)=>{
+    const use=hrs[i]>=8&&wind[i]>=20?'Solar + Wind':hrs[i]>=8?'Solar':wind[i]>=20?'Wind':'Low output',tr=el('tr');
+    [[fmt(day),'Date'],[hrs[i].toFixed(1),'Sunshine (h)'],[mj[i].toFixed(1),'Solar energy'],[wind[i].toFixed(0),'Max wind (km/h)']].forEach(([t,l])=>{
+      const td=el('td',t);td.setAttribute('data-label',l);tr.appendChild(td)});
+    const td=el('td');td.setAttribute('data-label','Best for');td.appendChild(el('span',use,use==='Low output'?'tag':'tag hi'));
+    tr.appendChild(td);body.appendChild(tr);
+  });
+  const card=(v,l)=>{const c=el('div');c.appendChild(el('strong',v));c.appendChild(el('span',l));sum.appendChild(c)};
+  card((hrs.reduce((a,b)=>a+b,0)/hrs.length).toFixed(1)+' h','Average daily sunshine');
+  card(fmt(d.time[mj.indexOf(Math.max(...mj))]),'Best solar day');
+  card(Math.max(...wind).toFixed(0)+' km/h','Peak wind this week');
+  wrap.classList.add('show');
+}
+async function run(){
+  btn.disabled=true;err.classList.remove('show');wrap.classList.remove('show');sum.replaceChildren();load.classList.add('show');
+  try{show(await getForecast());toast('Forecast updated for '+sel.selectedOptions[0].textContent)}
+  catch(e){err.textContent='Could not load the forecast ('+(e.message||e)+') Check your internet connection and try again.';err.classList.add('show')}
+  finally{load.classList.remove('show');btn.disabled=false}
+}
+btn.addEventListener('click',run);sel.addEventListener('change',run);run();
+})();
+
+/* ===== Task manager: CRUD + localStorage ===== */
+(()=>{const KEY='bh_tasks',$=id=>document.getElementById(id),f=$('tf'),body=$('tBody'),sums=$('tSum'),flt=$('tFilter'),STAT=['To do','In progress','Done'];
+const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e};
+let raw=null,tasks,editId=null;try{raw=localStorage.getItem(KEY)}catch(e){}
+try{tasks=raw?JSON.parse(raw):[{id:1,title:'Inspect inverters at Harbor Solar Park',cat:'Site inspection',status:'In progress',notes:'Check string 4 output'},
+  {id:2,title:'Service Ridge Wind Farm turbine 3',cat:'Wind maintenance',status:'To do',notes:'Gearbox oil change'}]}catch(e){tasks=[]}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(tasks))}catch(e){}};
+function render(){
+  body.replaceChildren();sums.replaceChildren();
+  STAT.forEach(s=>sums.appendChild(el('li',s+': '+tasks.filter(t=>t.status===s).length)));
+  const shown=tasks.filter(t=>flt.value==='All'||t.status===flt.value);
+  $('tEmpty').textContent=shown.length?'':'No tasks to show.';
+  shown.forEach(t=>{
+    const tr=el('tr'),cell=(label,...kids)=>{const td=el('td');td.setAttribute('data-label',label);kids.forEach(k=>td.appendChild(k));tr.appendChild(td)};
+    cell('Task',el('strong',t.title),el('br'),el('small',t.notes));
+    cell('Category',document.createTextNode(t.cat));
+    const sel=el('select');STAT.forEach(x=>{const o=el('option',x);o.selected=x===t.status;sel.appendChild(o)});
+    sel.addEventListener('change',()=>{tasks.find(k=>k.id===t.id).status=sel.value;save();render()});
+    cell('Status',sel);
+    const ed=el('button','Edit','btn'),del=el('button','Delete','btn del');
+    ed.addEventListener('click',()=>startEdit(t.id));
+    del.addEventListener('click',()=>{tr.classList.add('out');setTimeout(()=>{tr.remove();tasks=tasks.filter(k=>k.id!==t.id);save();render();toast('Task deleted')},300)});
+    cell('Actions',ed,del);body.appendChild(tr);
+  });
+}
+function resetForm(){f.reset();editId=null;$('tSave').textContent='Add task';$('tCancel').hidden=true}
+function startEdit(id){const t=tasks.find(k=>k.id===id);editId=id;
+  $('tTitle').value=t.title;$('tCat').value=t.cat;$('tStat').value=t.status;$('tNotes').value=t.notes;
+  $('tSave').textContent='Save changes';$('tCancel').hidden=false;f.scrollIntoView({behavior:'smooth',block:'center'});$('tTitle').focus()}
+f.addEventListener('submit',e=>{e.preventDefault();
+  const data={title:$('tTitle').value.trim(),cat:$('tCat').value,status:$('tStat').value,notes:$('tNotes').value.trim()};
+  if(!data.title)return;
+  const msg=editId?'Task updated':'Task added';
+  if(editId)Object.assign(tasks.find(k=>k.id===editId),data);else tasks.push({id:Date.now(),...data});
+  save();resetForm();render();toast(msg)});
+$('tCancel').addEventListener('click',resetForm);flt.addEventListener('change',render);
+render();
+})();
+
+/* ===== Interactive components: search/filter gallery + accordion ===== */
+(()=>{const $=id=>document.getElementById(id),grid=$('pGrid'),det=$('pDet'),q=$('pSearch'),ty=$('pType');
+const art={Solar:'<rect x="10" y="30" width="80" height="45" rx="4" fill="#1d4e7a" stroke="#fff" stroke-width="2"/><path d="M37 30v45M63 30v45M10 52h80" stroke="#fff" stroke-width="2"/><circle cx="82" cy="14" r="9" fill="#f2b705"/>',
+  Wind:'<rect x="48" y="40" width="4" height="48" fill="#fff"/><path d="M50 40V8M50 40l26 15M50 40L24 55" stroke="#fff" stroke-width="4"/>',
+  Storage:'<rect x="22" y="22" width="56" height="62" rx="6" fill="#fff"/><rect x="40" y="14" width="20" height="9" fill="#fff"/><path d="M54 34L40 56h9l-3 18 14-24h-9z" fill="#2e8b57"/>'},
+  bg={Solar:'#95c9e8',Wind:'#5c9bc4',Storage:'#1d4e7a'},
+  img=t=>'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="${bg[t]}"/>${art[t]}</svg>`),
+  items=[{id:1,name:'Rooftop Solar 3 kW',type:'Solar',size:'3 kW',price:'₹1,80,000',info:'Ideal for a small home. Cuts the daytime bill from the first month.'},
+  {id:2,name:'Rooftop Solar 10 kW',type:'Solar',size:'10 kW',price:'₹5,50,000',info:'Suits shops and larger homes with good roof space.'},
+  {id:3,name:'Ground-mount Solar 100 kW',type:'Solar',size:'100 kW',price:'₹48,00,000',info:'For factories and farms with open land.'},
+  {id:4,name:'Small Wind Turbine 5 kW',type:'Wind',size:'5 kW',price:'₹6,00,000',info:'Works well on sites with steady coastal wind.'},
+  {id:5,name:'Wind Turbine 50 kW',type:'Wind',size:'50 kW',price:'₹55,00,000',info:'Commercial turbine backed by a year of site wind data.'},
+  {id:6,name:'Home Battery 10 kWh',type:'Storage',size:'10 kWh',price:'₹4,50,000',info:'Stores extra solar power for evenings and outages.'},
+  {id:7,name:'Grid Battery 1 MWh',type:'Storage',size:'1 MWh',price:'₹3,50,00,000',info:'Large storage that smooths peak demand on the grid.'}];
+function render(){
+  const k=q.value.trim().toLowerCase(),list=items.filter(p=>(ty.value==='All'||p.type===ty.value)&&(p.name+' '+p.size).toLowerCase().includes(k));
+  grid.replaceChildren();det.classList.remove('show');
+  $('pCount').textContent=list.length?list.length+' system(s) found':'No systems match your search.';
+  list.forEach(p=>{const li=document.createElement('li');li.dataset.id=p.id;li.tabIndex=0;
+    li.innerHTML=`<img alt="${p.type} system" src="${img(p.type)}"><h3>${p.name}</h3><p>${p.type} | ${p.size}</p><strong>${p.price}</strong>`;grid.appendChild(li)});
+}
+grid.addEventListener('click',e=>{const li=e.target.closest('li');if(!li)return;
+  grid.querySelectorAll('li').forEach(x=>x.classList.remove('active'));li.classList.add('active');
+  const p=items.find(x=>x.id==li.dataset.id);
+  det.innerHTML=`<img alt="" src="${img(p.type)}"><div><h3>${p.name}</h3><p>${p.info}</p><button class="btn" id="dQuote">Get a quote</button><button class="btn" id="dClose" style="background:var(--mist)">Close</button></div>`;
+  det.classList.add('show');
+  det.querySelector('#dClose').addEventListener('click',()=>{det.classList.remove('show');li.classList.remove('active')});
+  det.querySelector('#dQuote').addEventListener('click',()=>{const s=document.querySelector('#qf select');s.value=p.type;s.dispatchEvent(new Event('change'));$('quote').scrollIntoView({behavior:'smooth'})});
+});
+grid.addEventListener('keydown',e=>{if(e.key==='Enter')e.target.click()});
+q.addEventListener('input',render);ty.addEventListener('change',render);
+$('pReset').addEventListener('click',()=>{q.value='';ty.value='All';render()});
+const faqs=document.querySelectorAll('#faqBox details');
+faqs.forEach(d=>d.addEventListener('toggle',()=>{d.classList.toggle('active',d.open);if(d.open)faqs.forEach(o=>{if(o!==d)o.open=false})}));
+render();
+})();
+</script>
+</body>
+</html>
